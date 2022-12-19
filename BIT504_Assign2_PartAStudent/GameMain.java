@@ -26,9 +26,11 @@ public class GameMain extends JPanel implements MouseListener{
 	// the game board 
 	private Board board;
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
+	//TODO: create the enumeration for the variable below (GameState currentState) DONE
 	//HINT all of the states you require are shown in the code within GameMain
-	private GameState currentState; 
+	private GameState currentState;
+	
+	
 	
 	// the current player
 	private Player currentPlayer; 
@@ -45,7 +47,8 @@ public class GameMain extends JPanel implements MouseListener{
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
 		statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 14));       
-		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));       
+		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));  
+		statusBar.addMouseListener(this);
 		statusBar.setOpaque(true);       
 		statusBar.setBackground(Color.LIGHT_GRAY);  
 		
@@ -55,10 +58,10 @@ public class GameMain extends JPanel implements MouseListener{
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
-		
+		board = new Board();
 		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
 
-		
+		initGame();
 		//TODO: call the method to initialise the game board
 
 	}
@@ -69,17 +72,23 @@ public class GameMain extends JPanel implements MouseListener{
 	         public void run() {
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
+				JPanel GameMain = new JPanel();
 				
-				//TODO: create the new GameMain panel and add it to the frame
+				
+				//TODO: create the new GameMain panel and add it to the frame DONE
 						
 				
 				
-				//TODO: set the default close operation of the frame to exit_on_close
+				//TODO: set the default close operation of the frame to exit_on_close  DONE
 		            
 				
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.add(GameMain);
+				
+				
 	         }
 		 });
 	}
@@ -94,14 +103,16 @@ public class GameMain extends JPanel implements MouseListener{
 		//set status bar message
 		if (currentState == GameState.Playing) {          
 			statusBar.setForeground(Color.BLACK);          
-			if (currentPlayer == Player.Cross) {   
+			if (currentPlayer == Player.Cross) {  
+				statusBar.setText("It is 'X's Turn");
 			
-				//TODO: use the status bar to display the message "X"'s Turn
+				//TODO: use the status bar to display the message "X"'s Turn  DONE
 
 				
 			} else {    
+				statusBar.setText("It is 'O's Turn");
 				
-				//TODO: use the status bar to display the message "O"'s Turn
+				//TODO: use the status bar to display the message "O"'s Turn	DONE
 
 				
 			}       
@@ -139,18 +150,27 @@ public class GameMain extends JPanel implements MouseListener{
 		public void updateGame(Player thePlayer, int row, int col) {
 			//check for win after play
 			if(board.hasWon(thePlayer, row, col)) {
+				if(thePlayer == Player.Cross)
+				{currentState = GameState.Cross_won;
+				}else if (thePlayer == Player.Nought) {
+					currentState = GameState.Nought_won;
+				}
 				
 				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
 
 				
 			} else 
 				if (board.isDraw ()) {
+					if(thePlayer.equals(Player.Cross)) {
+						currentState = GameState.Draw;
+					}
+					
 					
 				// TODO: set the currentstate to the draw gamestate
 
-			}
+			} else { currentState = GameState.Playing;
 			//otherwise no change to current state of playing
-		}
+		}}
 		
 				
 	
@@ -183,7 +203,7 @@ public class GameMain extends JPanel implements MouseListener{
 			// game over and restart              
 			initGame();            
 		}   
-		
+		//paint(this.board);
 		//TODO: redraw the graphics on the UI          
            
 	}
