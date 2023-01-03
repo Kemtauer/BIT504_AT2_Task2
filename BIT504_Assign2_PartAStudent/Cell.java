@@ -13,12 +13,12 @@ public class Cell {
 	public Cell(int row, int col) {
 		this.row = row;
 		this.col = col;
-		clear();
-		// TODO: Initialise the variables row, col 
+		clear();  //set cell content to empty
+		// TODO: Initialise the variables row, col DONE
 
 		
 		
-		//TODO: call the method that sets the cell content to EMPTY
+		//TODO: call the method that sets the cell content to EMPTY DONE
 		 
 	}
 	
@@ -46,8 +46,8 @@ public class Cell {
 	
 	/** Set this cell's content to EMPTY */
 	public void clear() {
-		
-;		
+		content = Player.Empty;
+		// check if working
 		// TODO: Set the value of content to Empty (Remember this is an enum)
 
 		
