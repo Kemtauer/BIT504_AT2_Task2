@@ -26,17 +26,23 @@ public class Board {
 	 /** Return true if it is a draw (i.e., no more EMPTY cells) */ 
 	public boolean isDraw() {
 		
-		
-		
+		boolean draw = true;
 		
 		for (int row = 0; row < GameMain.ROWS; ++row) {
 			for (int col = 0; col < GameMain.COLS; ++col) {
-				if(cells[row][col].content ==  Player.Empty);}
-			return false;	}
-				
-				return true;
-				
+				if(cells[row][col].content ==  Player.Empty) {
+				draw = false;
 				}
+			}
+		}
+		return draw;
+		}
+		
+		
+		
+		
+		
+		
 	
 		
 			

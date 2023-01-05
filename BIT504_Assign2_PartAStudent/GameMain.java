@@ -179,7 +179,7 @@ public class GameMain extends JPanel implements MouseListener{
 				
 			} else 
 				if (board.isDraw ()) {
-					//if(thePlayer.equals(Player.Cross))
+					if(thePlayer.equals(Player.Cross))
 					{
 						currentState = GameState.Draw;
 					}
